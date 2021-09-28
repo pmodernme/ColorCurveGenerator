@@ -14,9 +14,20 @@ struct CurveEditor: View {
     @Binding var brightness: Double
     @Binding var alpha: Double
     
+    @Binding var previousEnabled: Bool
+    @Binding var nextEnabled: Bool
+    @Binding var deleteEnabled: Bool
+    
     @State var darkMode: Bool = false
     
     var colorAtHue: (Double) -> Color
+    
+    var onHueChange: () -> Void
+    var onValueChange: () -> Void
+    
+    var previousPressed: () -> Void
+    var nextPressed: () -> Void
+    var deletePressed: () -> Void
     
     private let hueFormatter: NumberFormatter = {
         let f = NumberFormatter()
@@ -35,47 +46,87 @@ struct CurveEditor: View {
     
     var body: some View {
         let color = colorAtHue(hue)
-        VStack {
-            Group {
-                HStack(spacing: 32.0) {
-                    Capsule()
-                        .frame(width: 8, height: 28)
-                    Text("A")
-                        .font(.title)
-                        .fontWeight(.bold)
-                    Text("A")
-                    Text("A")
-                        .font(.caption)
-                    Text("A")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color(.systemBackground))
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8.0)
-                        )
+        VStack(spacing: 64) {
+            VStack {
+                Spacer()
+                VStack(spacing: 64) {
                     ZStack {
-                        Text("A")
-                        Text("0").foregroundColor(.clear)
-                    }
-                    .font(.caption)
-                    .padding(.vertical, 3.0)
-                    .padding(.horizontal, 6.0)
-                    .foregroundColor(Color(.label))
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(color, lineWidth: 2)
+                        Rectangle()
+                            .frame(width: 200, height: 100)
+                    }.background(
+                        LinearGradient(gradient: Gradient(colors: [Color(.systemGray), Color(.systemGray6)]), startPoint: .top, endPoint: .bottom)
                     )
+                    ZStack {
+                        Text("Lorem ipsum sum")
+                            .foregroundColor(Color(.label))
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(
+                                Color(.systemBackground)
+                                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                            )
+                    }
+                    .padding(.horizontal, 64)
+                    .padding(.vertical, 16)
+                    .background(
+                        Rectangle()
+                    )
+                    HStack(spacing: 32.0) {
+                        Capsule()
+                            .frame(width: 8, height: 28)
+                        Text("A")
+                            .font(.title)
+                            .fontWeight(.bold)
+                        Text("A")
+                        Text("A")
+                            .font(.caption)
+                        Text("A")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color(.systemBackground))
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8.0)
+                            )
+                        ZStack {
+                            Text("A")
+                            Text("0").foregroundColor(.clear)
+                        }
+                        .font(.caption)
+                        .padding(.vertical, 3.0)
+                        .padding(.horizontal, 6.0)
+                        .foregroundColor(Color(.label))
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(color, lineWidth: 2)
+                        )
+                    }
                 }
+                .foregroundColor(color)
+                .accentColor(color)
                 hueSlider
-                nodeSlider(value: $saturation, title: "s")
-                nodeSlider(value: $brightness, title: "b")
-                nodeSlider(value: $alpha, title: "a")
+                HStack(spacing: 64) {
+                    Button(action: previousPressed) {
+                        Image(systemName: "chevron.left")
+                    }
+                    Button(action: previousPressed) {
+                        Image(systemName: "chevron.right")
+                    }
+                    Button(action: previousPressed) {
+                        Image(systemName: "trash")
+                    }
+                }
+                nodeSlider(value: $saturation, title: "s") { step in
+                    Color(hue: hue/360, saturation: step, brightness: brightness, opacity: alpha)
+                }
+                nodeSlider(value: $brightness, title: "b") { step in
+                    Color(hue: hue/360, saturation: saturation, brightness: step, opacity: alpha)
+                }
+                nodeSlider(value: $alpha, title: "a") { step in
+                    Color(hue: hue/360, saturation: saturation, brightness: brightness, opacity: step)
+                }
             }
-            .foregroundColor(color)
-            .accentColor(color)
-            Spacer()
             Toggle("Dark Mode", isOn: $darkMode)
         }
         .padding()
@@ -91,7 +142,10 @@ struct CurveEditor: View {
             value: $hue,
             in: 0.0...359.0,
             title: "h",
-            numberFormatter: hueFormatter) { hueChanged() }
+            numberFormatter: hueFormatter,
+            colorAtStep: { step in
+                colorAtHue(step * 360.0)
+            }) { hueChanged() }
     }
     
     func nodeSlider(
@@ -99,6 +153,7 @@ struct CurveEditor: View {
         in range: ClosedRange<Double> = 0.0...1.0,
         title: String,
         numberFormatter: NumberFormatter? = nil,
+        colorAtStep: @escaping (Double) -> Color,
         onEditingChanged: (() -> Void)? = nil)
     -> some View {
         HStack {
@@ -108,6 +163,11 @@ struct CurveEditor: View {
                 in: range,
                 onEditingChanged: onEditingChanged ?? { valueChanged() }
             )
+                .background(
+                    ComputedColorStack(count: 32, colorAtStep: colorAtStep)
+                        .padding(.horizontal, 4)
+                        .frame(height: 8)
+                )
             formattedNodeDimension(value: value.wrappedValue, formatter: numberFormatter ?? nodeFormatter)
         }
     }
@@ -120,12 +180,21 @@ struct CurveEditor: View {
             .font(.system(.caption, design: .monospaced))
     }
     
-    func hueChanged() {
-        print("Hue")
-    }
+    func hueChanged() { onHueChange() }
     
-    func valueChanged() {
-        print("Value")
+    func valueChanged() { onValueChange() }
+}
+
+struct ComputedColorStack: View {
+    let count: Int
+    let colorAtStep: (Double) -> Color
+    
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(0..<count) { index in
+                colorAtStep(Double(index) * (1.0/Double(count)))
+            }
+        }
     }
 }
 
@@ -194,9 +263,22 @@ struct CurveEditorPreviewContainer: View {
     @State var alpha: Double = 1.0
     
     var body: some View {
-        CurveEditor(hue: $hue, saturation: $saturation, brightness: $brightness, alpha: $alpha) { (hue) -> Color in
-            Color(hue: hue/360.0, saturation: saturation, brightness: brightness, opacity: alpha)
-        }
+        CurveEditor(
+            hue: $hue,
+            saturation: $saturation,
+            brightness: $brightness,
+            alpha: $alpha,
+            previousEnabled: .constant(true),
+            nextEnabled: .constant(true),
+            deleteEnabled: .constant(true),
+            colorAtHue: { (hue) -> Color in
+                Color(hue: hue/360.0, saturation: saturation, brightness: brightness, opacity: alpha)
+            },
+            onHueChange: {},
+            onValueChange: {},
+            previousPressed: {},
+            nextPressed: {},
+            deletePressed: {})
     }
 }
 
