@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		BFD1C39127036E6B005BB01A /* CurveEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1C39027036E6B005BB01A /* CurveEditor.swift */; };
+		BFD1C3942703719E005BB01A /* Color+ColorCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1C3932703719E005BB01A /* Color+ColorCurve.swift */; };
 		DC7C4FA90E94DBFCCB7ABFA6 /* Pods_ColorCurveGen_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6584842B0DF2BB2CA0F41A60 /* Pods_ColorCurveGen_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -19,6 +21,8 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98A13227572D379132A28D29 /* Pods-ColorCurveGen_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorCurveGen_iOS.release.xcconfig"; path = "Target Support Files/Pods-ColorCurveGen_iOS/Pods-ColorCurveGen_iOS.release.xcconfig"; sourceTree = "<group>"; };
+		BFD1C39027036E6B005BB01A /* CurveEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveEditor.swift; sourceTree = "<group>"; };
+		BFD1C3932703719E005BB01A /* Color+ColorCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+ColorCurve.swift"; sourceTree = "<group>"; };
 		C181D377DAA32CD7103825A0 /* Pods-ColorCurveGen_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorCurveGen_iOS.debug.xcconfig"; path = "Target Support Files/Pods-ColorCurveGen_iOS/Pods-ColorCurveGen_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,6 +69,8 @@
 			isa = PBXGroup;
 			children = (
 				7555FF82242A565900829871 /* ContentView.swift */,
+				BFD1C39027036E6B005BB01A /* CurveEditor.swift */,
+				BFD1C39227037182005BB01A /* ViewModel */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 			);
@@ -77,6 +83,14 @@
 				6584842B0DF2BB2CA0F41A60 /* Pods_ColorCurveGen_iOS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BFD1C39227037182005BB01A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BFD1C3932703719E005BB01A /* Color+ColorCurve.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,7 +188,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				BFD1C39127036E6B005BB01A /* CurveEditor.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				BFD1C3942703719E005BB01A /* Color+ColorCurve.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

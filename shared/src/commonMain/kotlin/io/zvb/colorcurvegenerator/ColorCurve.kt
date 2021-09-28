@@ -11,22 +11,22 @@ interface ColorCurve {
             val nextPoint: ColorCurveNode = nodes.elementAtOrNull(idx + 1)
                 ?: if (nodes.count() > 0) {
                     val n = nodes[0]
-                    n.copy(hue = 1.0 + n.hue)
+                    n.copy(h = ColorCurveNode.hueUpperBound + n.h)
                 } else {
                     ColorCurveNode(0.0, 1.0, 1.0, 1.0)
                 }
 
-            if (hue > nextPoint.hue) {
+            if (hue > nextPoint.h) {
                 continue
             }
 
             // Find the proportion of the hue (where the hue is between points)
-            val pH = hue.minus(node.hue).div(nextPoint.hue.minus(node.hue))
+            val pH = hue.minus(node.h).div(nextPoint.h.minus(node.h))
 
             //
-            val rS = pH.times(nextPoint.saturation - node.saturation).plus(node.saturation)
-            val rB = pH.times(nextPoint.brightness - node.brightness).plus(node.brightness)
-            val rA = pH.times(nextPoint.alpha - node.alpha).plus(node.alpha)
+            val rS = pH.times(nextPoint.s - node.s).plus(node.s)
+            val rB = pH.times(nextPoint.b - node.b).plus(node.b)
+            val rA = pH.times(nextPoint.a - node.a).plus(node.a)
 
             result = ColorCurveNode(hue, rS, rB, rA)
             break

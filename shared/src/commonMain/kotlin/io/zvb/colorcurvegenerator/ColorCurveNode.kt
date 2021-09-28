@@ -3,7 +3,13 @@ package io.zvb.colorcurvegenerator
 /**
  *
  * An HSBA value that can be converted into platform specific colors.
- * Each parameter is a `Double` between 0.0 and 1.0.
- *
+ * @param h hue in range `0..<360`
+ * @param s saturation in range `0...1`
+ * @param b brightness in range `0...1`
+ * @param a alpha in range `0...1`
  */
-data class ColorCurveNode(val hue: Double, val saturation: Double, val brightness: Double, val alpha: Double)
+data class ColorCurveNode(val h: Double, val s: Double, val b: Double, val a: Double) {
+    companion object {
+        val hueUpperBound = 360.0
+    }
+}
