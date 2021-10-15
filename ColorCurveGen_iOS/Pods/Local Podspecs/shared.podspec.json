@@ -9,7 +9,7 @@
   "authors": "",
   "license": "",
   "summary": "Some description for the Shared Module",
-  "vendored_frameworks": "build/cocoapods/framework/shared.framework",
+  "vendored_frameworks": "build/cocoapods/framework/Shared.framework",
   "libraries": "c++",
   "module_name": "shared_umbrella",
   "platforms": {

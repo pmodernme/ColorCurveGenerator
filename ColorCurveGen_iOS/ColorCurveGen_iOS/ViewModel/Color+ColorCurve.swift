@@ -14,3 +14,9 @@ extension ColorCurveNode {
         return Color(hue: h/360.0, saturation: s, brightness: b, opacity: a)
     }
 }
+
+extension ColorCurve {
+    func colorAtHue(_ hue: Double) -> Color {
+        return nodeForHue(hue: hue).toColor
+    }
+}

@@ -36,7 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03EEBE93B15AB03C96BCE1C29CE5BD77 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
+		053DD7885BDE55F38C00F7EE9C1A4400 /* Shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Shared.framework; path = build/cocoapods/framework/Shared.framework; sourceTree = "<group>"; };
 		28672F8CEBFEFC6FC3984EC4585C9E3F /* Pods_ColorCurveGen_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ColorCurveGen_iOS.framework; path = "Pods-ColorCurveGen_iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C822D62451AD3FD4ED561DDA63BA064 /* Pods-ColorCurveGen_iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ColorCurveGen_iOS-dummy.m"; sourceTree = "<group>"; };
 		3918A33E505DEB853640D036AB7090A9 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
@@ -68,7 +68,7 @@
 		08F5E1BD5A000ABD31419CE018740EB5 /* shared */ = {
 			isa = PBXGroup;
 			children = (
-				A9CD216C6927478EA8A659D0B70A7BE5 /* Frameworks */,
+				F07AE063AF3DF8691F22A7210BEA229A /* Frameworks */,
 				DD71657F0D51CDE2CFC01229B517C18F /* Pod */,
 				682A3F31907B2F0836BB39156E7F4BD5 /* Support Files */,
 			);
@@ -118,14 +118,6 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		A9CD216C6927478EA8A659D0B70A7BE5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				03EEBE93B15AB03C96BCE1C29CE5BD77 /* shared.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +159,14 @@
 			);
 			name = "Pods-ColorCurveGen_iOS";
 			path = "Target Support Files/Pods-ColorCurveGen_iOS";
+			sourceTree = "<group>";
+		};
+		F07AE063AF3DF8691F22A7210BEA229A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				053DD7885BDE55F38C00F7EE9C1A4400 /* Shared.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
