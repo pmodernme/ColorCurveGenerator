@@ -16,13 +16,14 @@
 		BF43CD21271A3B3800BA30D5 /* NodeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43CD20271A3B3800BA30D5 /* NodeSlider.swift */; };
 		BF43CD23271A46CC00BA30D5 /* PreviewBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43CD22271A46CC00BA30D5 /* PreviewBox.swift */; };
 		BF43CD25271A50F700BA30D5 /* CurveSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43CD24271A50F700BA30D5 /* CurveSelector.swift */; };
-		BF43CD27271A511100BA30D5 /* CurveSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43CD26271A511100BA30D5 /* CurveSelectorViewModel.swift */; };
 		BF448B16271A278F001791BE /* MVIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF448B15271A278F001791BE /* MVIContainer.swift */; };
 		BF9EFF02271B6E7C00C4BF80 /* CurveEditorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF01271B6E7C00C4BF80 /* CurveEditorModel.swift */; };
 		BF9EFF04271B711300C4BF80 /* CurveEditorIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF03271B711300C4BF80 /* CurveEditorIntent.swift */; };
 		BF9EFF06271B7B1E00C4BF80 /* Color+Contrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF05271B7B1E00C4BF80 /* Color+Contrast.swift */; };
 		BF9EFF0A271B8F9000C4BF80 /* CurveSelectorModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF09271B8F9000C4BF80 /* CurveSelectorModelProtocols.swift */; };
 		BF9EFF0C271B902700C4BF80 /* CurveSelectorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF0B271B902700C4BF80 /* CurveSelectorModel.swift */; };
+		BF9EFF0E271B92B700C4BF80 /* CurveSelectorIntentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF0D271B92B700C4BF80 /* CurveSelectorIntentProtocol.swift */; };
+		BF9EFF10271B950100C4BF80 /* CurveSelectorIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF0F271B950100C4BF80 /* CurveSelectorIntent.swift */; };
 		BFD1C39127036E6B005BB01A /* CurveEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1C39027036E6B005BB01A /* CurveEditor.swift */; };
 		BFD1C3942703719E005BB01A /* Color+ColorCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1C3932703719E005BB01A /* Color+ColorCurve.swift */; };
 		DC7C4FA90E94DBFCCB7ABFA6 /* Pods_ColorCurveGen_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6584842B0DF2BB2CA0F41A60 /* Pods_ColorCurveGen_iOS.framework */; };
@@ -42,13 +43,14 @@
 		BF43CD20271A3B3800BA30D5 /* NodeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeSlider.swift; sourceTree = "<group>"; };
 		BF43CD22271A46CC00BA30D5 /* PreviewBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewBox.swift; sourceTree = "<group>"; };
 		BF43CD24271A50F700BA30D5 /* CurveSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveSelector.swift; sourceTree = "<group>"; };
-		BF43CD26271A511100BA30D5 /* CurveSelectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveSelectorViewModel.swift; sourceTree = "<group>"; };
 		BF448B15271A278F001791BE /* MVIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVIContainer.swift; sourceTree = "<group>"; };
 		BF9EFF01271B6E7C00C4BF80 /* CurveEditorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveEditorModel.swift; sourceTree = "<group>"; };
 		BF9EFF03271B711300C4BF80 /* CurveEditorIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveEditorIntent.swift; sourceTree = "<group>"; };
 		BF9EFF05271B7B1E00C4BF80 /* Color+Contrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Contrast.swift"; sourceTree = "<group>"; };
 		BF9EFF09271B8F9000C4BF80 /* CurveSelectorModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveSelectorModelProtocols.swift; sourceTree = "<group>"; };
 		BF9EFF0B271B902700C4BF80 /* CurveSelectorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveSelectorModel.swift; sourceTree = "<group>"; };
+		BF9EFF0D271B92B700C4BF80 /* CurveSelectorIntentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveSelectorIntentProtocol.swift; sourceTree = "<group>"; };
+		BF9EFF0F271B950100C4BF80 /* CurveSelectorIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveSelectorIntent.swift; sourceTree = "<group>"; };
 		BFD1C39027036E6B005BB01A /* CurveEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveEditor.swift; sourceTree = "<group>"; };
 		BFD1C3932703719E005BB01A /* Color+ColorCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+ColorCurve.swift"; sourceTree = "<group>"; };
 		C181D377DAA32CD7103825A0 /* Pods-ColorCurveGen_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorCurveGen_iOS.debug.xcconfig"; path = "Target Support Files/Pods-ColorCurveGen_iOS/Pods-ColorCurveGen_iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -152,9 +154,10 @@
 			isa = PBXGroup;
 			children = (
 				BF43CD24271A50F700BA30D5 /* CurveSelector.swift */,
-				BF43CD26271A511100BA30D5 /* CurveSelectorViewModel.swift */,
 				BF9EFF09271B8F9000C4BF80 /* CurveSelectorModelProtocols.swift */,
+				BF9EFF0D271B92B700C4BF80 /* CurveSelectorIntentProtocol.swift */,
 				BF9EFF0B271B902700C4BF80 /* CurveSelectorModel.swift */,
+				BF9EFF0F271B950100C4BF80 /* CurveSelectorIntent.swift */,
 			);
 			path = CurveSelector;
 			sourceTree = "<group>";
@@ -256,7 +259,7 @@
 				BF9EFF04271B711300C4BF80 /* CurveEditorIntent.swift in Sources */,
 				BF9EFF02271B6E7C00C4BF80 /* CurveEditorModel.swift in Sources */,
 				BF9EFF0A271B8F9000C4BF80 /* CurveSelectorModelProtocols.swift in Sources */,
-				BF43CD27271A511100BA30D5 /* CurveSelectorViewModel.swift in Sources */,
+				BF9EFF10271B950100C4BF80 /* CurveSelectorIntent.swift in Sources */,
 				BF448B16271A278F001791BE /* MVIContainer.swift in Sources */,
 				BF43CD23271A46CC00BA30D5 /* PreviewBox.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
@@ -266,6 +269,7 @@
 				BF43CD21271A3B3800BA30D5 /* NodeSlider.swift in Sources */,
 				BF43CD1F271A3A2F00BA30D5 /* ColorStack.swift in Sources */,
 				BF1998AB271B574600588475 /* CurveEditorModelProtocols.swift in Sources */,
+				BF9EFF0E271B92B700C4BF80 /* CurveSelectorIntentProtocol.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				BF43CD25271A50F700BA30D5 /* CurveSelector.swift in Sources */,
 				BFD1C3942703719E005BB01A /* Color+ColorCurve.swift in Sources */,

@@ -13,12 +13,12 @@ import SwiftUI
 
 final class MVIContainer<Model, Intent>: ObservableObject {
     
-    init(model: Model, intent: Intent) {
+    init(model: Model, intent: Intent, modelChangePublisher: ObjectWillChangePublisher? = nil) {
         self.intent = intent
         self.model = model
         
-        if let model = model as? CurveEditorModel {
-            model.objectWillChange
+        if let modelChangePublisher = modelChangePublisher {
+            modelChangePublisher
                 .receive(on: RunLoop.main)
                 .sink(receiveValue: objectWillChange.send)
                 .store(in: &cancellable)

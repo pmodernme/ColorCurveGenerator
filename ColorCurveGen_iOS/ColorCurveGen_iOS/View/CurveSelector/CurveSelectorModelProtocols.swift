@@ -10,10 +10,11 @@ import SwiftUI
 
 protocol CurveSelectorModelStateProtocol {
     var state: CurveSelectorState { get }
+    
+    func editorViewModel(for item: CurveSelectorItem) -> MVIContainer<CurveEditorModelStateProtocol, CurveEditorIntentProtocol>
 }
 
 protocol CurveSelectorModelActionsProtocol {
-    
 }
 
 struct CurveSelectorState {

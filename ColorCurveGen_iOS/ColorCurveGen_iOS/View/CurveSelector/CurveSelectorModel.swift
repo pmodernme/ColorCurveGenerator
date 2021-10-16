@@ -8,10 +8,19 @@
 
 import Foundation
 
-final class CurveSelectorModel: ObservableObject, CurveSelectorModelStateProtocol {
-    var state: CurveSelectorState
-    
-    init(state: CurveSelectorState) {
-        self.state = state
-    }
-}
+//final class CurveSelectorModel: ObservableObject, CurveSelectorModelStateProtocol {
+//    
+//    init(state: CurveSelectorState) {
+//        self.state = state
+//    }
+//    
+//    var state: CurveSelectorState
+//    
+//    func editorViewModel(for item: CurveSelectorItem) -> MVIContainer<CurveEditorModelStateProtocol, CurveEditorIntentProtocol> {
+//        
+//    }
+//}
+//
+//extension CurveSelectorModel: CurveSelectorModelActionsProtocol {
+//    
+//}
