@@ -14,7 +14,7 @@ struct PreviewBox: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        VStack(spacing: 64) {
+        VStack(spacing: 32) {
             ZStack {
                 Rectangle()
                     .frame(width: 200, height: 100)

@@ -49,6 +49,7 @@ struct NodeSlider: View {
             Text("\(numberFormatter.string(from: NSNumber(value: value)) ?? "-")")
                 .font(.system(.caption, design: .monospaced))
         }
+        .frame(minHeight: 44)
     }
 }
 

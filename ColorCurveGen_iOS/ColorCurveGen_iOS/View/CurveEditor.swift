@@ -26,20 +26,9 @@ struct CurveEditor: View {
                            colors: state.possibleHueColors,
                            onEditingChanged: { intent.onHueChange($0) })
                 HStack(spacing: 64) {
-                    Button(action: intent.onPreviousPressed) {
-                        Image(systemName: "chevron.left")
-                    }
-                    .disabled(!state.previousEnabled)
-                    
-                    Button(action: intent.onNextPressed) {
-                        Image(systemName: "chevron.right")
-                    }
-                    .disabled(!state.nextEnabled)
-                    
-                    Button(action: intent.onDeletePressed) {
-                        Image(systemName: "trash")
-                    }
-                    .disabled(!state.deleteEnabled)
+                    CurveNavButton(systemName: "chevron.left", enabled: state.previousEnabled, action: intent.onPreviousPressed)
+                    CurveNavButton(systemName: "chevron.right", enabled: state.nextEnabled, action: intent.onNextPressed)
+                    CurveNavButton(systemName: "trash", enabled: state.deleteEnabled, action: intent.onDeletePressed)
                 }
                 
                 NodeSlider(value: state.saturation,
@@ -67,6 +56,20 @@ struct CurveEditor: View {
     
     var state: CurveEditorState { viewModel.model.state }
     var intent: CurveEditorIntentProtocol { viewModel.intent }
+}
+
+private struct CurveNavButton: View {
+    var systemName: String
+    var enabled: Bool
+    var action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: systemName)
+                .frame(minWidth: 44, minHeight: 44)
+        }
+        .disabled(!enabled)
+    }
 }
 
 private let HueFormatter: NumberFormatter = {
