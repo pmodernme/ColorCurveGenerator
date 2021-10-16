@@ -11,7 +11,7 @@ import Foundation
 import Shared
 import SwiftUI
 
-final class ColorCurveViewModel: ObservableObject {
+final class CurveEditorViewModel: ObservableObject {
     
     init(intent: CurveEditorIntentProtocol, model: CurveEditorModelStateProtocol) {
         self.intent = intent
