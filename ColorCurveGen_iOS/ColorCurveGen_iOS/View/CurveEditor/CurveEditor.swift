@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CurveEditor: View {
     
-    @StateObject var viewModel: ColorCurveViewModel
+    @StateObject var viewModel: MVIContainer<CurveEditorModelStateProtocol, CurveEditorIntentProtocol>
     
     @State var darkMode: Bool = false
     
@@ -86,8 +86,8 @@ struct CurveEditor_Previews: PreviewProvider {
     }
 }
 
-func DummyCurveEditorViewModel() -> ColorCurveViewModel {
-    ColorCurveViewModel(intent: DummyCurveEditorIntent(), model: DummyCurveEditorModel())
+func DummyCurveEditorViewModel() -> MVIContainer<CurveEditorModelStateProtocol, CurveEditorIntentProtocol> {
+    MVIContainer(model: DummyCurveEditorModel(), intent: DummyCurveEditorIntent())
 }
 
 struct DummyCurveEditorModel: CurveEditorModelStateProtocol {

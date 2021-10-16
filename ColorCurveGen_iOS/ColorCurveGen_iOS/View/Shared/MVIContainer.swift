@@ -11,9 +11,9 @@ import Foundation
 import Shared
 import SwiftUI
 
-final class CurveEditorViewModel: ObservableObject {
+final class MVIContainer<Model, Intent>: ObservableObject {
     
-    init(intent: CurveEditorIntentProtocol, model: CurveEditorModelStateProtocol) {
+    init(model: Model, intent: Intent) {
         self.intent = intent
         self.model = model
         
@@ -25,9 +25,9 @@ final class CurveEditorViewModel: ObservableObject {
         }
     }
     
-    let intent: CurveEditorIntentProtocol
+    let intent: Intent
     
-    @Published var model: CurveEditorModelStateProtocol
+    @Published var model: Model
     
     private var cancellable: Set<AnyCancellable> = []
 }

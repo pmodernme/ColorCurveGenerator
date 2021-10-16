@@ -21,14 +21,3 @@ final class CurveSelectorViewModel: ObservableObject & CurveSelectorViewModelPro
     
     @Published var state: CurveSelectorState
 }
-
-struct CurveSelectorState {
-    let data: [CurveSelectorItem]
-}
-
-struct CurveSelectorItem: Identifiable {
-    var colors: [Color] = [.red, .orange, .yellow, .green, .blue, .purple]
-    var id: String = UUID().uuidString
-    var isDark: Bool = false
-    var name: String = "Curve Name"
-}

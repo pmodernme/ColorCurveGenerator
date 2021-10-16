@@ -7,7 +7,7 @@ struct ContentView: View {
 	var body: some View {
         let model = CurveEditorModel(curve: BasicColorCurve(nodes: []))
         let intent = CurveEditorIntent(model: model)
-        CurveEditor(viewModel: CurveEditorViewModel(intent: intent, model: model))
+        CurveEditor(viewModel: MVIContainer(model: model, intent: intent))
 	}
 }
 

@@ -6,4 +6,23 @@
 //  Copyright © 2021 orgName. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
+
+protocol CurveSelectorModelStateProtocol {
+    var state: CurveSelectorState { get }
+}
+
+protocol CurveSelectorModelActionsProtocol {
+    
+}
+
+struct CurveSelectorState {
+    let data: [CurveSelectorItem]
+}
+
+struct CurveSelectorItem: Identifiable {
+    var colors: [Color] = [.red, .orange, .yellow, .green, .blue, .purple]
+    var id: String = UUID().uuidString
+    var isDark: Bool = false
+    var name: String = "Curve Name"
+}
