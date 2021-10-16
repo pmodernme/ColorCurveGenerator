@@ -11,6 +11,8 @@ import SwiftUI
 struct PreviewBox: View {
     var color: Color
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack(spacing: 64) {
             ZStack {
@@ -19,6 +21,7 @@ struct PreviewBox: View {
             }.background(
                 LinearGradient(gradient: Gradient(colors: [Color(.systemGray), Color(.systemGray6)]), startPoint: .top, endPoint: .bottom)
             )
+            Text(contrastRatio)
             ZStack {
                 Text("Lorem ipsum sum")
                     .foregroundColor(Color(.label))
@@ -69,7 +72,31 @@ struct PreviewBox: View {
         .foregroundColor(color)
         .accentColor(color)
     }
+    
+    var contrastRatio: String {
+        guard let colorL = color.luminance else {
+            return "Unknown Contrast Ratio"
+        }
+        
+        let ratio: CGFloat
+        if colorScheme == .light {
+            ratio = 1.05 / (colorL + 0.05)
+        } else {
+            ratio = (colorL + 0.05) / 0.05
+        }
+        
+        return "Contrast Ratio - \(RatioFormatter.string(from: NSNumber(value: ratio)) ?? "?"):1"
+    }
 }
+
+private let RatioFormatter: NumberFormatter = {
+    let f = NumberFormatter()
+    f.minimumIntegerDigits = 1
+    f.maximumIntegerDigits = 1
+    f.minimumFractionDigits = 2
+    f.maximumFractionDigits = 2
+    return f
+}()
 
 struct PreviewBox_Previews: PreviewProvider {
     static var previews: some View {

@@ -9,16 +9,8 @@
 import SwiftUI
 
 struct CurveEditor: View {
-    var state: ColorCurveViewModel.State
     
-    var onPreviousPressed: () -> ()
-    var onNextPressed: () -> ()
-    var onDeletePressed: () -> ()
-    
-    var onHueChange: (Double) -> ()
-    var onSaturationChange: (Double) -> ()
-    var onBrightnessChange: (Double) -> ()
-    var onAlphaChange: (Double) -> ()
+    @StateObject var viewModel: ColorCurveViewModel
     
     @State var darkMode: Bool = false
     
@@ -32,19 +24,19 @@ struct CurveEditor: View {
                            title: "h",
                            numberFormatter: HueFormatter,
                            colors: state.possibleHueColors,
-                           onEditingChanged: { onHueChange($0) })
+                           onEditingChanged: { intent.onHueChange($0) })
                 HStack(spacing: 64) {
-                    Button(action: onPreviousPressed) {
+                    Button(action: intent.onPreviousPressed) {
                         Image(systemName: "chevron.left")
                     }
                     .disabled(!state.previousEnabled)
                     
-                    Button(action: onNextPressed) {
+                    Button(action: intent.onNextPressed) {
                         Image(systemName: "chevron.right")
                     }
                     .disabled(!state.nextEnabled)
                     
-                    Button(action: onDeletePressed) {
+                    Button(action: intent.onDeletePressed) {
                         Image(systemName: "trash")
                     }
                     .disabled(!state.deleteEnabled)
@@ -53,15 +45,15 @@ struct CurveEditor: View {
                 NodeSlider(value: state.saturation,
                            title: "s",
                            colors: state.possibleSatColors,
-                           onEditingChanged: { onSaturationChange($0) })
+                           onEditingChanged: { intent.onSaturationChange($0) })
                 NodeSlider(value: state.brightness,
                            title: "b",
                            colors: state.possibleBriColors,
-                           onEditingChanged: { onBrightnessChange($0) })
+                           onEditingChanged: { intent.onBrightnessChange($0) })
                 NodeSlider(value: state.alpha,
                            title: "a",
                            colors: state.possibleAlphaColors,
-                           onEditingChanged: { onAlphaChange($0) })
+                           onEditingChanged: { intent.onAlphaChange($0) })
             }
             Toggle("Dark Mode", isOn: $darkMode)
         }
@@ -72,6 +64,9 @@ struct CurveEditor: View {
         )
         .colorScheme(darkMode ? .dark : .light)
     }
+    
+    var state: CurveEditorState { viewModel.model.state }
+    var intent: CurveEditorIntentProtocol { viewModel.intent }
 }
 
 private let HueFormatter: NumberFormatter = {
@@ -81,20 +76,39 @@ private let HueFormatter: NumberFormatter = {
 }()
 
 struct CurveEditor_Previews: PreviewProvider {
+    
     static var previews: some View {
-        let state = ColorCurveViewModel
-            .State(hue: 0.0,
-                   saturation: 1.0,
-                   brightness: 1.0,
-                   alpha: 1.0,
-                   previousEnabled: true,
-                   nextEnabled: true,
-                   deleteEnabled: true,
-                   color: .red,
-                   possibleHueColors: [.red, .orange, .yellow, .green, .blue, .purple],
-                   possibleSatColors: [.red],
-                   possibleBriColors: [.red],
-                   possibleAlphaColors: [.red])
-        CurveEditor(state: state, onPreviousPressed: {}, onNextPressed: {}, onDeletePressed: {}, onHueChange: { _ in }, onSaturationChange: { _ in }, onBrightnessChange: { _ in }, onAlphaChange: { _ in })
+        let vm = DummyCurveEditorViewModel()
+        CurveEditor(viewModel: vm)
     }
+}
+
+func DummyCurveEditorViewModel() -> ColorCurveViewModel {
+    ColorCurveViewModel(intent: DummyCurveEditorIntent(), model: DummyCurveEditorModel())
+}
+
+struct DummyCurveEditorModel: CurveEditorModelStateProtocol {
+    let state: CurveEditorState = CurveEditorState(
+        hue: 0.0,
+        saturation: 1.0,
+        brightness: 1.0,
+        alpha: 1.0,
+        previousEnabled: true,
+        nextEnabled: true,
+        deleteEnabled: true,
+        color: .red,
+        possibleHueColors: [.red, .orange, .yellow, .green, .blue, .purple],
+        possibleSatColors: [.red],
+        possibleBriColors: [.red],
+        possibleAlphaColors: [.red])
+}
+
+struct DummyCurveEditorIntent: CurveEditorIntentProtocol {
+    func onHueChange(_ hue: Double) { }
+    func onSaturationChange(_ saturation: Double) { }
+    func onBrightnessChange(_ brightness: Double) { }
+    func onAlphaChange(_ alpha: Double) { }
+    func onPreviousPressed() { }
+    func onNextPressed() { }
+    func onDeletePressed() { }
 }
