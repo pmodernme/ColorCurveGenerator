@@ -76,13 +76,13 @@ final class ColorCurveViewModel: ObservableObject {
     
     func onPreviousPressed() {
         guard curve.nodes.count > 0,
-              let node = curve.nodes.first(where: { $0.h < state.hue }) ?? curve.nodes.last else { return }
+              let node = curve.nodes.last(where: { $0.h < state.hue }) ?? curve.nodes.last else { return }
         state = stateFrom(hue: node.h, curve: curve)
     }
     
     func onNextPressed() {
         guard curve.nodes.count > 0,
-              let node = curve.nodes.last(where: { state.hue < $0.h }) ?? curve.nodes.first else { return }
+              let node = curve.nodes.first(where: { state.hue < $0.h }) ?? curve.nodes.first else { return }
         state = stateFrom(hue: node.h, curve: curve)
     }
     

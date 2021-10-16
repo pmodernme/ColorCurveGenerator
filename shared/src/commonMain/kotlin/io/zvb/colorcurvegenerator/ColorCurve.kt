@@ -7,7 +7,13 @@ interface ColorCurve {
         var result = ColorCurveNode(hue, 1.0, 1.0, 1.0)
 
         for (idx in nodes.indices) {
-            val node = nodes[idx]
+            var idx = idx
+            var node = nodes[idx]
+            if (idx == 0 && hue < node.h) {
+                node = nodes.lastOrNull()?.let { it.copy(h = it.h - ColorCurveNode.hueUpperBound) }
+                    ?: ColorCurveNode(hue, 1.0, 1.0, 1.0)
+                idx -= 1
+            }
             val nextPoint: ColorCurveNode = nodes.elementAtOrNull(idx + 1)
                 ?: nodes.elementAtOrNull(0)?.let { it.copy(h = it.h + ColorCurveNode.hueUpperBound) }
                 ?: ColorCurveNode(hue, 1.0, 1.0, 1.0)

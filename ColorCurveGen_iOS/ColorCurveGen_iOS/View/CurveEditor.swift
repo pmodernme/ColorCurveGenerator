@@ -9,49 +9,59 @@
 import SwiftUI
 
 struct CurveEditor: View {
-    @StateObject private var viewModel = ColorCurveViewModel()
+    var state: ColorCurveViewModel.State
+    
+    var onPreviousPressed: () -> ()
+    var onNextPressed: () -> ()
+    var onDeletePressed: () -> ()
+    
+    var onHueChange: (Double) -> ()
+    var onSaturationChange: (Double) -> ()
+    var onBrightnessChange: (Double) -> ()
+    var onAlphaChange: (Double) -> ()
+    
     @State var darkMode: Bool = false
     
     var body: some View {
         VStack(spacing: 64) {
             VStack {
                 Spacer()
-                PreviewBox(color: viewModel.state.color)
-                NodeSlider(value: viewModel.state.hue,
+                PreviewBox(color: state.color)
+                NodeSlider(value: state.hue,
                            range: 0.0...359.0,
                            title: "h",
                            numberFormatter: HueFormatter,
-                           colors: viewModel.state.possibleHueColors,
-                           onEditingChanged: { viewModel.onHueChange($0) })
+                           colors: state.possibleHueColors,
+                           onEditingChanged: { onHueChange($0) })
                 HStack(spacing: 64) {
-                    Button(action: viewModel.onPreviousPressed) {
+                    Button(action: onPreviousPressed) {
                         Image(systemName: "chevron.left")
                     }
-                    .disabled(!viewModel.state.previousEnabled)
+                    .disabled(!state.previousEnabled)
                     
-                    Button(action: viewModel.onNextPressed) {
+                    Button(action: onNextPressed) {
                         Image(systemName: "chevron.right")
                     }
-                    .disabled(!viewModel.state.nextEnabled)
+                    .disabled(!state.nextEnabled)
                     
-                    Button(action: viewModel.onDeletePressed) {
+                    Button(action: onDeletePressed) {
                         Image(systemName: "trash")
                     }
-                    .disabled(!viewModel.state.deleteEnabled)
+                    .disabled(!state.deleteEnabled)
                 }
                 
-                NodeSlider(value: viewModel.state.saturation,
+                NodeSlider(value: state.saturation,
                            title: "s",
-                           colors: viewModel.state.possibleSatColors,
-                           onEditingChanged: { viewModel.onSaturationChange($0) })
-                NodeSlider(value: viewModel.state.brightness,
+                           colors: state.possibleSatColors,
+                           onEditingChanged: { onSaturationChange($0) })
+                NodeSlider(value: state.brightness,
                            title: "b",
-                           colors: viewModel.state.possibleBriColors,
-                           onEditingChanged: { viewModel.onBrightnessChange($0) })
-                NodeSlider(value: viewModel.state.alpha,
+                           colors: state.possibleBriColors,
+                           onEditingChanged: { onBrightnessChange($0) })
+                NodeSlider(value: state.alpha,
                            title: "a",
-                           colors: viewModel.state.possibleAlphaColors,
-                           onEditingChanged: { viewModel.onAlphaChange($0) })
+                           colors: state.possibleAlphaColors,
+                           onEditingChanged: { onAlphaChange($0) })
             }
             Toggle("Dark Mode", isOn: $darkMode)
         }
@@ -70,15 +80,21 @@ private let HueFormatter: NumberFormatter = {
     return f
 }()
 
-struct CurveEditorPreviewContainer: View {
-    var body: some View {
-        CurveEditor()
-    }
-}
-
 struct CurveEditor_Previews: PreviewProvider {
     static var previews: some View {
-        CurveEditorPreviewContainer()
-            .previewLayout(.sizeThatFits)
+        let state = ColorCurveViewModel
+            .State(hue: 0.0,
+                   saturation: 1.0,
+                   brightness: 1.0,
+                   alpha: 1.0,
+                   previousEnabled: true,
+                   nextEnabled: true,
+                   deleteEnabled: true,
+                   color: .red,
+                   possibleHueColors: [.red, .orange, .yellow, .green, .blue, .purple],
+                   possibleSatColors: [.red],
+                   possibleBriColors: [.red],
+                   possibleAlphaColors: [.red])
+        CurveEditor(state: state, onPreviousPressed: {}, onNextPressed: {}, onDeletePressed: {}, onHueChange: { _ in }, onSaturationChange: { _ in }, onBrightnessChange: { _ in }, onAlphaChange: { _ in })
     }
 }
