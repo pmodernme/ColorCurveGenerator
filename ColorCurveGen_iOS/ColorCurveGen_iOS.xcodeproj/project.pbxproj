@@ -24,8 +24,6 @@
 		BF9EFF0C271B902700C4BF80 /* CurveSelectorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF0B271B902700C4BF80 /* CurveSelectorModel.swift */; };
 		BF9EFF0E271B92B700C4BF80 /* CurveSelectorIntentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF0D271B92B700C4BF80 /* CurveSelectorIntentProtocol.swift */; };
 		BF9EFF10271B950100C4BF80 /* CurveSelectorIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF0F271B950100C4BF80 /* CurveSelectorIntent.swift */; };
-		BFCE4008271E27A100C2B8E3 /* Flow+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCE4007271E27A000C2B8E3 /* Flow+Publisher.swift */; };
-		BFCE400A271E2ACA00C2B8E3 /* Publisher+Failures.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCE4009271E2ACA00C2B8E3 /* Publisher+Failures.swift */; };
 		BFD1C39127036E6B005BB01A /* CurveEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1C39027036E6B005BB01A /* CurveEditor.swift */; };
 		BFD1C3942703719E005BB01A /* Color+ColorCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1C3932703719E005BB01A /* Color+ColorCurve.swift */; };
 		DC7C4FA90E94DBFCCB7ABFA6 /* Pods_ColorCurveGen_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6584842B0DF2BB2CA0F41A60 /* Pods_ColorCurveGen_iOS.framework */; };
@@ -53,8 +51,6 @@
 		BF9EFF0B271B902700C4BF80 /* CurveSelectorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveSelectorModel.swift; sourceTree = "<group>"; };
 		BF9EFF0D271B92B700C4BF80 /* CurveSelectorIntentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveSelectorIntentProtocol.swift; sourceTree = "<group>"; };
 		BF9EFF0F271B950100C4BF80 /* CurveSelectorIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveSelectorIntent.swift; sourceTree = "<group>"; };
-		BFCE4007271E27A000C2B8E3 /* Flow+Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Flow+Publisher.swift"; sourceTree = "<group>"; };
-		BFCE4009271E2ACA00C2B8E3 /* Publisher+Failures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Failures.swift"; sourceTree = "<group>"; };
 		BFD1C39027036E6B005BB01A /* CurveEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveEditor.swift; sourceTree = "<group>"; };
 		BFD1C3932703719E005BB01A /* Color+ColorCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+ColorCurve.swift"; sourceTree = "<group>"; };
 		C181D377DAA32CD7103825A0 /* Pods-ColorCurveGen_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorCurveGen_iOS.debug.xcconfig"; path = "Target Support Files/Pods-ColorCurveGen_iOS/Pods-ColorCurveGen_iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -138,8 +134,6 @@
 				BF43CD22271A46CC00BA30D5 /* PreviewBox.swift */,
 				BFD1C3932703719E005BB01A /* Color+ColorCurve.swift */,
 				BF9EFF05271B7B1E00C4BF80 /* Color+Contrast.swift */,
-				BFCE4007271E27A000C2B8E3 /* Flow+Publisher.swift */,
-				BFCE4009271E2ACA00C2B8E3 /* Publisher+Failures.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -262,7 +256,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFCE4008271E27A100C2B8E3 /* Flow+Publisher.swift in Sources */,
 				BF9EFF04271B711300C4BF80 /* CurveEditorIntent.swift in Sources */,
 				BF9EFF02271B6E7C00C4BF80 /* CurveEditorModel.swift in Sources */,
 				BF9EFF0A271B8F9000C4BF80 /* CurveSelectorModelProtocols.swift in Sources */,
@@ -275,7 +268,6 @@
 				BFD1C39127036E6B005BB01A /* CurveEditor.swift in Sources */,
 				BF43CD21271A3B3800BA30D5 /* NodeSlider.swift in Sources */,
 				BF43CD1F271A3A2F00BA30D5 /* ColorStack.swift in Sources */,
-				BFCE400A271E2ACA00C2B8E3 /* Publisher+Failures.swift in Sources */,
 				BF1998AB271B574600588475 /* CurveEditorModelProtocols.swift in Sources */,
 				BF9EFF0E271B92B700C4BF80 /* CurveSelectorIntentProtocol.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,

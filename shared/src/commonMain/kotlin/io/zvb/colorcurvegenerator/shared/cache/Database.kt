@@ -3,11 +3,14 @@ package io.zvb.colorcurvegenerator.shared.cache
 import com.squareup.sqldelight.ColumnAdapter
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
-import io.zvb.colorcurvegenerator.Cancellable
 import io.zvb.colorcurvegenerator.ColorCurveNode
+import io.zvb.colorcurvegenerator.KotlinNativeFlowWrapper
 import io.zvb.colorcurvegenerator.NamedColorCurve
-import io.zvb.colorcurvegenerator.collect
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.map
+import kotlin.coroutines.CoroutineContext
 
 class Database(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = CurveDatabase(
@@ -22,8 +25,12 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) {
         curves.map { mapCurve(it.id, it.name, it.isDark, it.nodes) }
     }
 
-    fun curves(onEach: (List<NamedColorCurve>) -> Unit, onCompletion: (Throwable?) -> Unit): Cancellable =
-        curves().collect(onEach, onCompletion)
+    val iosScope: CoroutineScope = object  : CoroutineScope {
+        override val coroutineContext: CoroutineContext
+            get() = SupervisorJob() + Dispatchers.Main
+    }
+
+    val iosPollCurves get() = KotlinNativeFlowWrapper(curves())
 
     fun getCurve(id: Long) = dbQuery.selectById(id, ::mapCurve).executeAsOne()
 

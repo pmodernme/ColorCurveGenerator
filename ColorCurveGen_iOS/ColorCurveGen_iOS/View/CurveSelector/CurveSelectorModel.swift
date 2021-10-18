@@ -13,29 +13,57 @@ import Shared
 final class CurveSelectorModel: ObservableObject, CurveSelectorModelStateProtocol {
     
     init(database: Database) {
-//        collect(database.curves)
-//            .completeOnFailure()
-//            .map({ curves in
-//                CurveSelectorState(data: curves.map { curve in
-//                    guard let id = curve.id?.int64Value else { return nil }
-//                    return CurveSelectorItem(colors: curve.asColorSpectrum(), id: id, isDark: curve.isDark, name: curve.name)
-//                })
-//            })
-//            .sink { [weak self] curves in
-//                print("Received \(curves.count) curves")
-//            }
-//            .store(in: &items)
+        subscription = CurvePublisher(database: database)
+            .map { curves in
+                CurveSelectorState(data: curves.compactMap { curve in
+                    guard let id = curve.id?.int64Value else { return nil }
+                    return CurveSelectorItem(colors: curve.asColorSpectrum(), id: id, isDark: curve.isDark, name: curve.name)
+                })
+            }
+            .assign(to: \.state, on: self)
     }
     
     @Published var state = CurveSelectorState(data: [])
+    private var subscription: AnyCancellable?
+}
+
+private struct CurvePublisher: Publisher {
+    typealias Output = [NamedColorCurve]
+    typealias Failure = Never
     
-    private var items: [CurveSelectorItem] {
-        set {
-            state = CurveSelectorState(data: newValue)
+    private let database: Database
+    init(database: Database) {
+        self.database = database
+    }
+    
+    func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, [NamedColorCurve] == S.Input {
+        
+    }
+    
+    final class CurveSubscription<S: Subscriber>: Subscription where S.Input == [NamedColorCurve], S.Failure == Failure {
+        private var subscriber: S?
+        private var job: Kotlinx_coroutines_coreJob? = nil
+        
+        private let database: Database
+        
+        init(database: Database, subscriber: S) {
+            self.database = database
+            self.subscriber = subscriber
+            
+            job = database.iosPollCurves.subscribe(
+                scope: database.iosScope,
+                onEach: { _ = subscriber.receive($0 as! [NamedColorCurve]) },
+                onComplete: { subscriber.receive(completion: .finished)},
+                onThrow: { error in debugPrint(error) }
+            )
         }
-        get {
-            state.data
+        
+        func cancel() {
+            subscriber = nil
+            job?.cancel(cause: nil)
         }
+        
+        func request(_ demand: Subscribers.Demand) {}
     }
 }
 
