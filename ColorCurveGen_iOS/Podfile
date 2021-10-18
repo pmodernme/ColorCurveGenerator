@@ -1,5 +1,5 @@
 target 'ColorCurveGen_iOS' do
   use_frameworks!
   platform :ios, '14.1'
-  pod 'shared', :path => '../shared'
+  pod 'shared', :path => '/Volumes/VelcroDog/Code/Multiplatform/ColorCurveGenerator/shared'
 end

@@ -1,11 +1,11 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'shared'
     spec.version                  = '1.0'
-    spec.homepage                 = 'Link to the Shared Module homepage'
+    spec.homepage                 = '...'
     spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'Some description for the Shared Module'
+    spec.summary                  = 'Color Curve Generator common business logic and datastore'
 
     spec.vendored_frameworks      = "build/cocoapods/framework/Shared.framework"
     spec.libraries                = "c++"

@@ -38,3 +38,17 @@ interface ColorCurve {
 }
 
 class BasicColorCurve(override var nodes: List<ColorCurveNode>) : ColorCurve
+
+data class NamedColorCurve(
+    override var nodes: List<ColorCurveNode>,
+    val name: String,
+    val id: Long?,
+    val isDark: Boolean
+) : ColorCurve {
+    constructor(
+        name: String,
+        isDark: Boolean,
+        curve: ColorCurve,
+        id: Long?
+    ): this(nodes = curve.nodes, name = name, id = id, isDark = isDark)
+}

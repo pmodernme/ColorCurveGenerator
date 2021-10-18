@@ -4,6 +4,8 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    kotlin("plugin.serialization")
+    id("com.squareup.sqldelight")
 }
 
 version = "1.0"
@@ -11,41 +13,58 @@ version = "1.0"
 kotlin {
     android()
 
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget = when {
-        System.getenv("SDK_NAME")?.startsWith("iphoneos") == true -> ::iosArm64
-        System.getenv("NATIVE_ARCH")?.startsWith("arm") == true -> ::iosSimulatorArm64
-        else -> ::iosX64
-    }
+    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
+        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
+            ::iosArm64
+        else
+            ::iosX64
 
     iosTarget("ios") {}
 
     cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
+        summary = "Color Curve Generator common business logic and datastore"
+        homepage = "..."
         ios.deploymentTarget = "14.1"
-        podfile = project.file("../ColorCurveGen_iOS/Podfile")
 
         framework {
             baseName = "Shared"
         }
+
+        podfile = project.file("../ColorCurveGen_iOS/Podfile")
     }
+
+    val coroutinesVersion = "1.5.2"
+    val sqlDelightVersion: String by project
     
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
+            }
+        }
         val androidTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
             }
         }
-        val iosMain by getting
+        val iosMain by getting {
+            dependencies {
+                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+            }
+        }
         val iosTest by getting
     }
 }
@@ -57,4 +76,11 @@ android {
         minSdk = 21
         targetSdk = 30
     }
+}
+
+sqldelight {
+    database("CurveDatabase") {
+        packageName = "io.zvb.colorcurvegenerator.shared.cache"
+    }
+    linkSqlite = true
 }

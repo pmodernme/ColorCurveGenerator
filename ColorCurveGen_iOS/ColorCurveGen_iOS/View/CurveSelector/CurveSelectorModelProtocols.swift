@@ -23,7 +23,7 @@ struct CurveSelectorState {
 
 struct CurveSelectorItem: Identifiable {
     var colors: [Color] = [.red, .orange, .yellow, .green, .blue, .purple]
-    var id: String = UUID().uuidString
+    var id: Int64 = .random(in: 0...Int64.max)
     var isDark: Bool = false
     var name: String = "Curve Name"
 }

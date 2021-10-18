@@ -1,14 +1,14 @@
 {
   "name": "shared",
   "version": "1.0",
-  "homepage": "Link to the Shared Module homepage",
+  "homepage": "...",
   "source": {
     "git": "Not Published",
     "tag": "Cocoapods/shared/1.0"
   },
   "authors": "",
   "license": "",
-  "summary": "Some description for the Shared Module",
+  "summary": "Color Curve Generator common business logic and datastore",
   "vendored_frameworks": "build/cocoapods/framework/Shared.framework",
   "libraries": "c++",
   "module_name": "shared_umbrella",
