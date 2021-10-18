@@ -34,6 +34,9 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
     fun getCurve(id: Long) = dbQuery.selectById(id, ::mapCurve).executeAsOne()
 
+    fun insertCurve(name: String, isDark: Boolean, nodes: List<ColorCurveNode>) =
+        dbQuery.insertCurve(null, name, isDark, nodes)
+
     private fun mapCurve(
         id: Long,
         name: String,

@@ -13,6 +13,7 @@ import Shared
 final class CurveSelectorModel: ObservableObject, CurveSelectorModelStateProtocol {
     
     init(database: Database) {
+        self.database = database
         subscription = CurvePublisher(database: database)
             .map { curves in
                 CurveSelectorState(data: curves.compactMap { curve in
@@ -24,6 +25,8 @@ final class CurveSelectorModel: ObservableObject, CurveSelectorModelStateProtoco
     }
     
     @Published var state = CurveSelectorState(data: [])
+    
+    private let database: Database
     private var subscription: AnyCancellable?
 }
 
@@ -37,7 +40,8 @@ private struct CurvePublisher: Publisher {
     }
     
     func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, [NamedColorCurve] == S.Input {
-        
+        let subscription = CurveSubscription(database: database, subscriber: subscriber)
+        subscriber.receive(subscription: subscription)
     }
     
     final class CurveSubscription<S: Subscriber>: Subscription where S.Input == [NamedColorCurve], S.Failure == Failure {
@@ -67,4 +71,10 @@ private struct CurvePublisher: Publisher {
     }
 }
 
-extension CurveSelectorModel: CurveSelectorModelActionsProtocol { }
+extension CurveSelectorModel: CurveSelectorModelActionsProtocol {
+    
+    func insertNewCurve(name: String, isDark: Bool) {
+        database.insertCurve(name: name, isDark: isDark, nodes: [])
+    }
+    
+}

@@ -8,6 +8,15 @@
 
 import Foundation
 
-//final class CurveSelectorIntent: CurveSelectorIntentProtocol {
-//    
-//}
+final class CurveSelectorIntent: CurveSelectorIntentProtocol {
+    
+    internal init(model: CurveSelectorModelActionsProtocol) {
+        self.model = model
+    }
+    
+    weak var model: CurveSelectorModelActionsProtocol?
+    
+    func onComposePressed() {
+        
+    }
+}

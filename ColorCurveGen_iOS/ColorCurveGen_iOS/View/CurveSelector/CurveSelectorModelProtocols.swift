@@ -12,7 +12,8 @@ protocol CurveSelectorModelStateProtocol {
     var state: CurveSelectorState { get }
 }
 
-protocol CurveSelectorModelActionsProtocol {
+protocol CurveSelectorModelActionsProtocol: AnyObject {
+    func insertNewCurve(name: String, isDark: Bool)
 }
 
 struct CurveSelectorState {

@@ -79,5 +79,5 @@ struct DummyCurveSelectorModel: CurveSelectorModelStateProtocol {
 }
 
 struct DummyCurveSelectorIntent: CurveSelectorIntentProtocol {
-    
+    func onComposePressed() { }
 }
