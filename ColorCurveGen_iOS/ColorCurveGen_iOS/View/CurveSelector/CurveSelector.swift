@@ -16,8 +16,8 @@ struct CurveSelector: View {
         NavigationView {
             List(state.data) { item in
                 NavigationLink(destination: {
-                    let vm = model.editorViewModel(for: item)
-                    CurveEditor(viewModel: vm, darkMode: item.isDark)
+//                    let vm = model.editorViewModel(for: item)
+//                    CurveEditor(viewModel: vm, darkMode: item.isDark)
                 }) {
                     CurveSelectorRow(item: item)
                 }

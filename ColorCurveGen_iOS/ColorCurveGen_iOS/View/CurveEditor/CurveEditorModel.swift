@@ -66,21 +66,11 @@ extension CurveEditorModel: CurveEditorModelActionsProtocol {
     }
 }
 
-private let colorStepCount = 32
-private let steps = (0..<colorStepCount).map { Double($0) / Double(colorStepCount) }
-
 private func stateFrom(hue: Double, curve: ColorCurve) -> CurveEditorState {
     let node = curve.nodeForHue(hue: hue)
     
     let isNode = curve.nodes.contains(where: { $0.h == hue })
     let navEnabled = curve.nodes.count > 1 || curve.nodes.count == 1 && !isNode
-    
-    let pHue = steps.map { curve.nodeForHue(hue: 360.0 * $0).toColor }
-    let (pSat, pBri, pAlp) = steps.reduce(into: ([Color](), [Color](), [Color]())) { result, step in
-        result.0.append(node.doCopy(h: node.h, s: step, b: node.b, a: node.a).toColor)
-        result.1.append(node.doCopy(h: node.h, s: node.s, b: step, a: node.a).toColor)
-        result.2.append(node.doCopy(h: node.h, s: node.s, b: node.b, a: step).toColor)
-    }
     
     return CurveEditorState(
         hue: hue,
@@ -91,8 +81,8 @@ private func stateFrom(hue: Double, curve: ColorCurve) -> CurveEditorState {
         nextEnabled: navEnabled,
         deleteEnabled: isNode,
         color: node.toColor,
-        possibleHueColors: pHue,
-        possibleSatColors: pSat,
-        possibleBriColors: pBri,
-        possibleAlphaColors: pAlp)
+        possibleHueColors: curve.asColorSpectrum(),
+        possibleSatColors: node.saturationSpectrum().colors,
+        possibleBriColors: node.brightnessSpectrum().colors,
+        possibleAlphaColors: node.alphaSpectrum().colors)
 }

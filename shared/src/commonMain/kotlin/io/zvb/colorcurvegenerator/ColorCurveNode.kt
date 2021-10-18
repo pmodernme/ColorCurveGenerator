@@ -11,5 +11,14 @@ package io.zvb.colorcurvegenerator
 data class ColorCurveNode(val h: Double, val s: Double, val b: Double, val a: Double) {
     companion object {
         val hueUpperBound = 360.0
+        val spectrumSteps = 32
+    }
+
+    fun saturationSpectrum() = steps().map { copy(s = it) }
+    fun brightnessSpectrum() = steps().map { copy(b = it) }
+    fun alphaSpectrum() = steps().map { copy(a = it) }
+
+    private fun steps() = (0 until spectrumSteps).map {
+        it.toDouble() / spectrumSteps
     }
 }

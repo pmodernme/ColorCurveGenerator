@@ -8,9 +8,17 @@ isDark INTEGER AS Boolean DEFAULT 0 NOT NULL,
 nodes TEXT AS List<ColorCurveNode> NOT NULL
 );
 
-removeAllCurves:
-DELETE FROM curve;
+insertCurve:
+INSERT INTO curve(id, name, isDark, nodes)
+VALUES(?,?,?,?);
+
+removeCurve:
+DELETE FROM curve
+WHERE id = ?;
 
 selectAllCurves:
-SELECT curve.*
-FROM curve;
+SELECT * FROM curve;
+
+selectById:
+SELECT * FROM curve
+WHERE id = ?;

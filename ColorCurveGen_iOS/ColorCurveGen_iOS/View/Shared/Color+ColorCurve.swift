@@ -19,4 +19,12 @@ extension ColorCurve {
     func colorAtHue(_ hue: Double) -> Color {
         return nodeForHue(hue: hue).toColor
     }
+    
+    func asColorSpectrum(steps numberOfSteps: Int = 32) -> [Color] {
+        return asSpectrum().map { $0.toColor }
+    }
+}
+
+extension Array where Element: ColorCurveNode {
+    var colors: [Color] { map { $0.toColor }}
 }

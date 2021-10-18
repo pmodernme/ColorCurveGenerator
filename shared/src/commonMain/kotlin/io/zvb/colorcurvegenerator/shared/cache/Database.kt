@@ -1,11 +1,15 @@
 package io.zvb.colorcurvegenerator.shared.cache
 
 import com.squareup.sqldelight.ColumnAdapter
-import io.zvb.colorcurvegenerator.ColorCurve
+import com.squareup.sqldelight.runtime.coroutines.asFlow
+import com.squareup.sqldelight.runtime.coroutines.mapToList
+import io.zvb.colorcurvegenerator.Cancellable
 import io.zvb.colorcurvegenerator.ColorCurveNode
 import io.zvb.colorcurvegenerator.NamedColorCurve
+import io.zvb.colorcurvegenerator.collect
+import kotlinx.coroutines.flow.map
 
-internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
+class Database(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = CurveDatabase(
         databaseDriverFactory.createDriver(),
         curveAdapter = Curve.Adapter(
@@ -14,24 +18,25 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
     )
     private val dbQuery = database.curveDatabaseQueries
 
-    internal fun clearDatabase() {
-        dbQuery.removeAllCurves()
+    fun curves() = dbQuery.selectAllCurves().asFlow().mapToList().map { curves ->
+        curves.map { mapCurve(it.id, it.name, it.isDark, it.nodes) }
     }
 
-    internal fun getAllCurves(): List<ColorCurve> {
-        return  dbQuery.selectAllCurves(::mapCurve).executeAsList()
-    }
+    fun curves(onEach: (List<NamedColorCurve>) -> Unit, onCompletion: (Throwable?) -> Unit): Cancellable =
+        curves().collect(onEach, onCompletion)
+
+    fun getCurve(id: Long) = dbQuery.selectById(id, ::mapCurve).executeAsOne()
 
     private fun mapCurve(
         id: Long,
         name: String,
         isDark: Boolean,
         nodes: List<ColorCurveNode>
-    ): ColorCurve = NamedColorCurve(
-        nodes = nodes,
-        name = name,
+    ): NamedColorCurve = NamedColorCurve(
         id = id,
-        isDark = isDark
+        name = name,
+        isDark = isDark,
+        nodes = nodes,
     )
 
     private val listOfNodesAdapter

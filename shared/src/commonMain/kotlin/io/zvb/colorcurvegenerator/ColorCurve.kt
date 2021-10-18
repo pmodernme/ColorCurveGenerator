@@ -35,6 +35,12 @@ interface ColorCurve {
 
         return result
     }
+
+    fun asSpectrum(): List<ColorCurveNode> =
+        (0 until ColorCurveNode.spectrumSteps).map {
+            val hue = ColorCurveNode.hueUpperBound.times(it.toDouble()/ColorCurveNode.spectrumSteps)
+            nodeForHue(hue)
+        }
 }
 
 class BasicColorCurve(override var nodes: List<ColorCurveNode>) : ColorCurve
