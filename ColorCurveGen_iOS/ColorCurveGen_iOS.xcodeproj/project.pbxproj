@@ -26,16 +26,13 @@
 		BF9EFF10271B950100C4BF80 /* CurveSelectorIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF0F271B950100C4BF80 /* CurveSelectorIntent.swift */; };
 		BFD1C39127036E6B005BB01A /* CurveEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1C39027036E6B005BB01A /* CurveEditor.swift */; };
 		BFD1C3942703719E005BB01A /* Color+ColorCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1C3932703719E005BB01A /* Color+ColorCurve.swift */; };
-		DC7C4FA90E94DBFCCB7ABFA6 /* Pods_ColorCurveGen_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6584842B0DF2BB2CA0F41A60 /* Pods_ColorCurveGen_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
-		6584842B0DF2BB2CA0F41A60 /* Pods_ColorCurveGen_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorCurveGen_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF7B242A565900829871 /* ColorCurveGen_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorCurveGen_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98A13227572D379132A28D29 /* Pods-ColorCurveGen_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorCurveGen_iOS.release.xcconfig"; path = "Target Support Files/Pods-ColorCurveGen_iOS/Pods-ColorCurveGen_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		BF1998A8271B573300588475 /* CurveEditorIntentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveEditorIntentProtocol.swift; sourceTree = "<group>"; };
 		BF1998AA271B574600588475 /* CurveEditorModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveEditorModelProtocols.swift; sourceTree = "<group>"; };
 		BF43CD1B271A393800BA30D5 /* ClearSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearSlider.swift; sourceTree = "<group>"; };
@@ -53,7 +50,6 @@
 		BF9EFF0F271B950100C4BF80 /* CurveSelectorIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveSelectorIntent.swift; sourceTree = "<group>"; };
 		BFD1C39027036E6B005BB01A /* CurveEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveEditor.swift; sourceTree = "<group>"; };
 		BFD1C3932703719E005BB01A /* Color+ColorCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+ColorCurve.swift"; sourceTree = "<group>"; };
-		C181D377DAA32CD7103825A0 /* Pods-ColorCurveGen_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorCurveGen_iOS.debug.xcconfig"; path = "Target Support Files/Pods-ColorCurveGen_iOS/Pods-ColorCurveGen_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,28 +57,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC7C4FA90E94DBFCCB7ABFA6 /* Pods_ColorCurveGen_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		19CE02539038C98C04C4B9FD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C181D377DAA32CD7103825A0 /* Pods-ColorCurveGen_iOS.debug.xcconfig */,
-				98A13227572D379132A28D29 /* Pods-ColorCurveGen_iOS.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
 				7555FF7D242A565900829871 /* ColorCurveGen_iOS */,
 				7555FF7C242A565900829871 /* Products */,
-				19CE02539038C98C04C4B9FD /* Pods */,
 				77EF7317051F0384EEA4F567 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -109,7 +94,6 @@
 		77EF7317051F0384EEA4F567 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6584842B0DF2BB2CA0F41A60 /* Pods_ColorCurveGen_iOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -169,7 +153,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "ColorCurveGen_iOS" */;
 			buildPhases = (
-				0987D7F957CF2B093C568814 /* [CP] Check Pods Manifest.lock */,
+				0987D7F957CF2B093C568814 /* Run Script */,
 				7555FF77242A565900829871 /* Sources */,
 				7555FF79242A565900829871 /* Resources */,
 				402E8782173E7A4E9CBFC260 /* Frameworks */,
@@ -227,7 +211,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0987D7F957CF2B093C568814 /* [CP] Check Pods Manifest.lock */ = {
+		0987D7F957CF2B093C568814 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -235,10 +219,8 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -246,8 +228,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -399,12 +380,12 @@
 		};
 		7555FFA6242A565B00829871 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C181D377DAA32CD7103825A0 /* Pods-ColorCurveGen_iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQ84298H37;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = ColorCurveGen_iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -412,11 +393,8 @@
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
-					"-l\"c++\"",
 					"-framework",
-					"\"Shared\"",
-					"-lsqlite3",
+					Shared,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.ColorCurveGeniOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -427,12 +405,12 @@
 		};
 		7555FFA7242A565B00829871 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 98A13227572D379132A28D29 /* Pods-ColorCurveGen_iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQ84298H37;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = ColorCurveGen_iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -440,11 +418,8 @@
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
-					"-l\"c++\"",
 					"-framework",
-					"\"Shared\"",
-					"-lsqlite3",
+					Shared,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.ColorCurveGeniOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";

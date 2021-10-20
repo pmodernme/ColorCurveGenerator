@@ -2,13 +2,9 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
     id("com.android.library")
-    kotlin("plugin.serialization")
     id("com.squareup.sqldelight")
 }
-
-version = "1.0"
 
 kotlin {
     android()
@@ -19,29 +15,19 @@ kotlin {
         else -> ::iosX64
     }
 
-    iosTarget("ios") {}
-
-    cocoapods {
-        summary = "Color Curve Generator common business logic and datastore"
-        homepage = "..."
-        ios.deploymentTarget = "14.1"
-
-        framework {
-            baseName = "Shared"
+    iosTarget("ios") {
+        binaries {
+            framework {
+                baseName = "Shared"
+            }
         }
-
-        podfile = project.file("../ColorCurveGen_iOS/Podfile")
     }
-
-    val coroutinesVersion = "1.5.2"
-    val sqlDelightVersion: String by project
     
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
-                implementation("com.squareup.sqldelight:coroutines-extensions:$sqlDelightVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+                implementation("com.squareup.sqldelight:coroutines-extensions:1.5.2")
             }
         }
         val commonTest by getting {
@@ -52,7 +38,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
+                implementation("com.squareup.sqldelight:android-driver:1.5.2")
             }
         }
         val androidTest by getting {
@@ -63,7 +49,7 @@ kotlin {
         }
         val iosMain by getting {
             dependencies {
-                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+                implementation("com.squareup.sqldelight:native-driver:1.5.2")
             }
         }
         val iosTest by getting
@@ -83,5 +69,4 @@ sqldelight {
     database("CurveDatabase") {
         packageName = "io.zvb.colorcurvegenerator.shared.cache"
     }
-    linkSqlite = true
 }
