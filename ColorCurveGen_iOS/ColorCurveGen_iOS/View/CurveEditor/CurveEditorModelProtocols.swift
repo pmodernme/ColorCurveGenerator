@@ -10,6 +10,8 @@ import SwiftUI
 
 protocol CurveEditorModelStateProtocol {
     var state: CurveEditorState { get }
+    var name: String { get set }
+    var isDark: Bool { get set }
 }
 
 protocol CurveEditorModelActionsProtocol: AnyObject {
@@ -18,6 +20,7 @@ protocol CurveEditorModelActionsProtocol: AnyObject {
     func renderNextHue()
     func renderPreviousHue()
     func deleteHue()
+    func saveNameChange()
 }
 
 struct CurveEditorState {

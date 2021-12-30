@@ -6,11 +6,8 @@ import com.squareup.sqldelight.runtime.coroutines.mapToList
 import io.zvb.colorcurvegenerator.ColorCurveNode
 import io.zvb.colorcurvegenerator.KotlinNativeFlowWrapper
 import io.zvb.colorcurvegenerator.NamedColorCurve
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.map
-import kotlin.coroutines.CoroutineContext
 
 class Database(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = CurveDatabase(
@@ -25,10 +22,7 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) {
         curves.map { mapCurve(it.id, it.name, it.isDark, it.nodes) }
     }
 
-    val iosScope: CoroutineScope = object  : CoroutineScope {
-        override val coroutineContext: CoroutineContext
-            get() = SupervisorJob() + Dispatchers.Main
-    }
+    val iosScope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Main)
 
     val iosPollCurves get() = KotlinNativeFlowWrapper(curves())
 
@@ -36,6 +30,9 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
     fun insertCurve(name: String, isDark: Boolean, nodes: List<ColorCurveNode>) =
         dbQuery.insertCurve(null, name, isDark, nodes)
+
+    fun updateCurve(id: Long, name: String, isDark: Boolean, nodes: List<ColorCurveNode>) =
+        dbQuery.updateCurve(name, isDark, nodes, id)
 
     private fun mapCurve(
         id: Long,

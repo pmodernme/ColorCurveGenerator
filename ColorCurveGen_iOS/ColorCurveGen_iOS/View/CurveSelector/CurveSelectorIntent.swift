@@ -16,7 +16,7 @@ final class CurveSelectorIntent: CurveSelectorIntentProtocol {
     
     weak var model: CurveSelectorModelActionsProtocol?
     
-    func onComposePressed() {
-        
+    func onComposePressed(name: String) {
+        model?.insertNewCurve(name: name, isDark: false)
     }
 }

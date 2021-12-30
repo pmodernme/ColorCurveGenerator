@@ -12,11 +12,14 @@ struct CurveEditor: View {
     
     @StateObject var viewModel: MVIContainer<CurveEditorModelStateProtocol, CurveEditorIntentProtocol>
     
-    @State var darkMode: Bool = false
-    
     var body: some View {
         VStack(spacing: 64) {
             VStack {
+                TextField("Name", text: $viewModel.model.name)
+                    .onSubmit {
+                        intent.onNameChanged()
+                    }
+                    .border(.secondary)
                 Spacer()
                 PreviewBox(color: state.color)
                 NodeSlider(value: state.hue,
@@ -44,16 +47,17 @@ struct CurveEditor: View {
                            colors: state.possibleAlphaColors,
                            onEditingChanged: { intent.onAlphaChange($0) })
             }
-            Toggle("Dark Mode", isOn: $darkMode)
+            Toggle("Dark Mode", isOn: $viewModel.model.isDark)
         }
         .padding()
         .background(
             Color(.systemBackground)
                 .ignoresSafeArea()
         )
-        .colorScheme(darkMode ? .dark : .light)
+        .colorScheme(viewModel.model.isDark ? .dark : .light)
     }
     
+    var model: CurveEditorModelStateProtocol { viewModel.model }
     var state: CurveEditorState { viewModel.model.state }
     var intent: CurveEditorIntentProtocol { viewModel.intent }
 }
@@ -104,6 +108,8 @@ struct DummyCurveEditorModel: CurveEditorModelStateProtocol {
         possibleSatColors: [.red],
         possibleBriColors: [.red],
         possibleAlphaColors: [.red])
+    var name: String = "New Curve"
+    var isDark: Bool = false
 }
 
 struct DummyCurveEditorIntent: CurveEditorIntentProtocol {
@@ -114,4 +120,6 @@ struct DummyCurveEditorIntent: CurveEditorIntentProtocol {
     func onPreviousPressed() { }
     func onNextPressed() { }
     func onDeletePressed() { }
+    func saveNameChange() { }
+    func onNameChanged() { }
 }

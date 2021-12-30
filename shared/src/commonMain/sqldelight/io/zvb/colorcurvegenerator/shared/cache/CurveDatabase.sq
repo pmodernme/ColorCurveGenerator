@@ -22,3 +22,10 @@ SELECT * FROM curve;
 selectById:
 SELECT * FROM curve
 WHERE id = ?;
+
+updateCurve:
+UPDATE OR IGNORE curve
+SET name = :name,
+    isDark = :isDark,
+    nodes = :nodes
+WHERE id = :id;

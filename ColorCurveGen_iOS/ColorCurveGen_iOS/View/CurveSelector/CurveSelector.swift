@@ -16,13 +16,21 @@ struct CurveSelector: View {
         NavigationView {
             List(state.data) { item in
                 NavigationLink(destination: {
-//                    let vm = model.editorViewModel(for: item)
-//                    CurveEditor(viewModel: vm, darkMode: item.isDark)
+                    ScrollView {
+                        CurveEditor(viewModel: model.editorViewModel(for: item))
+                    }
                 }) {
                     CurveSelectorRow(item: item)
                 }
             }
             .navigationTitle("Curves")
+            .toolbar {
+                Button {
+                    intent.onComposePressed(name: "New Curve")
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                }
+            }
         }
     }
     
@@ -79,5 +87,5 @@ struct DummyCurveSelectorModel: CurveSelectorModelStateProtocol {
 }
 
 struct DummyCurveSelectorIntent: CurveSelectorIntentProtocol {
-    func onComposePressed() { }
+    func onComposePressed(name: String) { }
 }

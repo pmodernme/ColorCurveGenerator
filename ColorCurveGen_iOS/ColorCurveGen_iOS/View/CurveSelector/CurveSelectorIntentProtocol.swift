@@ -9,5 +9,5 @@
 import Foundation
 
 protocol CurveSelectorIntentProtocol {
-    func onComposePressed()
+    func onComposePressed(name: String)
 }

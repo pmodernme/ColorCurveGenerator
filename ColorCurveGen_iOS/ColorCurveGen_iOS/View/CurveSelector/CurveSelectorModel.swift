@@ -18,7 +18,7 @@ final class CurveSelectorModel: ObservableObject, CurveSelectorModelStateProtoco
             .map { curves in
                 CurveSelectorState(data: curves.compactMap { curve in
                     guard let id = curve.id?.int64Value else { return nil }
-                    return CurveSelectorItem(colors: curve.asColorSpectrum(), id: id, isDark: curve.isDark, name: curve.name)
+                    return CurveSelectorItem(curve: curve, id: id, isDark: curve.isDark, name: curve.name)
                 })
             }
             .assign(to: \.state, on: self)
@@ -28,6 +28,12 @@ final class CurveSelectorModel: ObservableObject, CurveSelectorModelStateProtoco
     
     private let database: Database
     private var subscription: AnyCancellable?
+    
+    func editorViewModel(for item: CurveSelectorItem) -> MVIContainer<CurveEditorModelStateProtocol, CurveEditorIntentProtocol> {
+        let model = CurveEditorModel(curve: item.curve, database: database)
+        let intent = CurveEditorIntent(model: model)
+        return MVIContainer(model: model, intent: intent, modelChangePublisher: model.objectWillChange)
+    }
 }
 
 private struct CurvePublisher: Publisher {
@@ -54,12 +60,22 @@ private struct CurvePublisher: Publisher {
             self.database = database
             self.subscriber = subscriber
             
-            job = database.iosPollCurves.subscribe(
-                scope: database.iosScope,
-                onEach: { _ = subscriber.receive($0 as! [NamedColorCurve]) },
-                onComplete: { subscriber.receive(completion: .finished)},
-                onThrow: { error in debugPrint(error) }
-            )
+            do {
+                job = try database.iosPollCurves.subscribe(
+                    scope: database.iosScope,
+                    onEach: {
+                        _ = subscriber.receive($0 as! [NamedColorCurve])
+                    },
+                    onComplete: {
+                        subscriber.receive(completion: .finished)
+                    },
+                    onThrow: {
+                        error in debugPrint(error)
+                    }
+                )
+            } catch {
+                Swift.print("Error", error)
+            }
         }
         
         func cancel() {

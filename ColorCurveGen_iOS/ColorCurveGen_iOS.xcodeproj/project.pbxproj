@@ -17,6 +17,8 @@
 		BF43CD23271A46CC00BA30D5 /* PreviewBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43CD22271A46CC00BA30D5 /* PreviewBox.swift */; };
 		BF43CD25271A50F700BA30D5 /* CurveSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43CD24271A50F700BA30D5 /* CurveSelector.swift */; };
 		BF448B16271A278F001791BE /* MVIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF448B15271A278F001791BE /* MVIContainer.swift */; };
+		BF610FCF277E32A4006656D3 /* shared in Resources */ = {isa = PBXBuildFile; fileRef = BF610FCE277E32A4006656D3 /* shared */; };
+		BF610FD1277E703B006656D3 /* Debounce-throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF610FD0277E703B006656D3 /* Debounce-throttle.swift */; };
 		BF9EFF02271B6E7C00C4BF80 /* CurveEditorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF01271B6E7C00C4BF80 /* CurveEditorModel.swift */; };
 		BF9EFF04271B711300C4BF80 /* CurveEditorIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF03271B711300C4BF80 /* CurveEditorIntent.swift */; };
 		BF9EFF06271B7B1E00C4BF80 /* Color+Contrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EFF05271B7B1E00C4BF80 /* Color+Contrast.swift */; };
@@ -41,6 +43,8 @@
 		BF43CD22271A46CC00BA30D5 /* PreviewBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewBox.swift; sourceTree = "<group>"; };
 		BF43CD24271A50F700BA30D5 /* CurveSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveSelector.swift; sourceTree = "<group>"; };
 		BF448B15271A278F001791BE /* MVIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVIContainer.swift; sourceTree = "<group>"; };
+		BF610FCE277E32A4006656D3 /* shared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shared; path = ../shared; sourceTree = "<group>"; };
+		BF610FD0277E703B006656D3 /* Debounce-throttle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Debounce-throttle.swift"; sourceTree = "<group>"; };
 		BF9EFF01271B6E7C00C4BF80 /* CurveEditorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveEditorModel.swift; sourceTree = "<group>"; };
 		BF9EFF03271B711300C4BF80 /* CurveEditorIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveEditorIntent.swift; sourceTree = "<group>"; };
 		BF9EFF05271B7B1E00C4BF80 /* Color+Contrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Contrast.swift"; sourceTree = "<group>"; };
@@ -67,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				7555FF7D242A565900829871 /* ColorCurveGen_iOS */,
+				BF610FCE277E32A4006656D3 /* shared */,
 				7555FF7C242A565900829871 /* Products */,
 				77EF7317051F0384EEA4F567 /* Frameworks */,
 			);
@@ -118,6 +123,7 @@
 				BF43CD22271A46CC00BA30D5 /* PreviewBox.swift */,
 				BFD1C3932703719E005BB01A /* Color+ColorCurve.swift */,
 				BF9EFF05271B7B1E00C4BF80 /* Color+Contrast.swift */,
+				BF610FD0277E703B006656D3 /* Debounce-throttle.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -205,6 +211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF610FCF277E32A4006656D3 /* shared in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +262,7 @@
 				BF43CD25271A50F700BA30D5 /* CurveSelector.swift in Sources */,
 				BFD1C3942703719E005BB01A /* Color+ColorCurve.swift in Sources */,
 				BF9EFF0C271B902700C4BF80 /* CurveSelectorModel.swift in Sources */,
+				BF610FD1277E703B006656D3 /* Debounce-throttle.swift in Sources */,
 				BF1998A9271B573300588475 /* CurveEditorIntentProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,6 +395,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = ColorCurveGen_iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -412,6 +421,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = ColorCurveGen_iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

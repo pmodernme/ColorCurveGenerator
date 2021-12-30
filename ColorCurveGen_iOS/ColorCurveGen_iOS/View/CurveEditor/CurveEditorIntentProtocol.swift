@@ -16,4 +16,5 @@ protocol CurveEditorIntentProtocol {
     func onPreviousPressed()
     func onNextPressed()
     func onDeletePressed()
+    func onNameChanged()
 }

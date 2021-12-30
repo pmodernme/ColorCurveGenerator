@@ -9,18 +9,53 @@
 import Shared
 import SwiftUI
 
-final class CurveEditorModel: ObservableObject, CurveEditorModelStateProtocol {
-    internal init(curve: ColorCurve) {
+final class CurveEditorModel: ObservableObject, CurveEditorModelStateProtocol {    
+    internal init(curve: ColorCurve, database: Database? = nil) {
         self.curve = curve
+        self.database = database
         state = stateFrom(hue: 0.0, curve: curve)
+        if let curve = curve as? NamedColorCurve {
+            self.name = curve.name
+            self.id = curve.id as? Int64
+            self.isDark = curve.isDark
+        } else {
+            self.name = "New Curve"
+            self.id = nil
+        }
     }
     
     @Published var state: CurveEditorState
+    @Published var name: String { didSet { if let curve = curve as? NamedColorCurve {
+        self.curve = curve.doCopy(nodes: curve.nodes, name: name, id: curve.id, isDark: curve.isDark)
+    }}}
+    @Published var isDark: Bool = false { didSet { if let curve = curve as? NamedColorCurve {
+        self.curve = curve.doCopy(nodes: curve.nodes, name: curve.name, id: curve.id, isDark: isDark)
+    }}}
+    let id: Int64?
     
-    private var curve: ColorCurve
+    private var curve: ColorCurve { didSet {
+        saveUpdate()
+    }}
+    
+    private let database: Database?
+    
+    private func _saveUpdate() {
+        guard let curve = curve as? NamedColorCurve else { return }
+        database?.updateCurve(id: curve.id as! Int64, name: name, isDark: isDark, nodes: curve.nodes)
+    }
+    private lazy var saveUpdate = debounce(delay: .milliseconds(300)) { [weak self] in
+        self?._saveUpdate()
+    }
 }
 
 extension CurveEditorModel: CurveEditorModelActionsProtocol {
+    
+    func saveNameChange() {
+        if let id = id, let database = database {
+            database.updateCurve(id: id, name: name, isDark: isDark, nodes: curve.nodes)
+        }
+    }
+    
     func render(hue: Double) {
         state = stateFrom(hue: hue, curve: curve)
     }
@@ -61,7 +96,9 @@ extension CurveEditorModel: CurveEditorModelActionsProtocol {
     func deleteHue() {
         guard curve.nodes.count > 0,
               let idx = curve.nodes.firstIndex(where: { state.hue == $0.h }) else { return }
+        let curve = curve
         curve.nodes.remove(at: idx)
+        self.curve = curve
         state = stateFrom(hue: state.hue, curve: curve)
     }
 }

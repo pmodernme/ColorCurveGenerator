@@ -8,7 +8,12 @@ package io.zvb.colorcurvegenerator
  * @param b brightness in range `0...1`
  * @param a alpha in range `0...1`
  */
-data class ColorCurveNode(val h: Double, val s: Double, val b: Double, val a: Double) {
+data class ColorCurveNode(
+    val h: Double,
+    val s: Double,
+    val b: Double,
+    val a: Double = 1.0
+) {
     companion object {
         val hueUpperBound = 360.0
         val spectrumSteps = 32

@@ -9,55 +9,47 @@ plugins {
 kotlin {
     android()
 
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget = when {
-        System.getenv("SDK_NAME")?.startsWith("iphoneos") == true -> ::iosArm64
-        System.getenv("NATIVE_ARCH")?.startsWith("arm") == true -> ::iosSimulatorArm64
-        else -> ::iosX64
-    }
-
-    iosTarget("ios") {
-        binaries {
-            framework {
-                baseName = "Shared"
-            }
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach {
+        it.binaries.framework {
+            baseName = "Shared"
         }
     }
     
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
-                implementation("com.squareup.sqldelight:coroutines-extensions:1.5.2")
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt"){
+                    version {
+                        strictly("1.6.0-native-mt")
+                    }
+                }
+                implementation("com.squareup.sqldelight:runtime:1.5.3")
+                implementation("com.squareup.sqldelight:coroutines-extensions:1.5.3")
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation("com.squareup.sqldelight:android-driver:1.5.2")
+                implementation("com.squareup.sqldelight:android-driver:1.5.3")
             }
         }
-        val androidTest by getting {
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
+                implementation("com.squareup.sqldelight:native-driver:1.5.3")
             }
         }
-        val iosMain by getting {
-            dependencies {
-                implementation("com.squareup.sqldelight:native-driver:1.5.2")
-            }
-        }
-        val iosTest by getting
     }
 }
 
 android {
-    compileSdk = 30
+    compileSdk = 31
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 21

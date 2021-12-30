@@ -30,14 +30,18 @@ import kotlinx.coroutines.flow.*
 //}
 
 class KotlinNativeFlowWrapper<T>(private val flow: Flow<T>) {
+
+    @Throws(IllegalStateException::class)
     fun subscribe(
         scope: CoroutineScope,
         onEach: (item: T) -> Unit,
         onComplete: () -> Unit,
         onThrow: (error: Throwable) -> Unit
-    ) = flow
-        .onEach { onEach(it) }
-        .catch { onThrow(it) }
-        .onCompletion { onComplete() }
-        .launchIn(scope)
+    ) = scope.launch {
+        flow.onCompletion { onComplete() }
+            .catch { onThrow(it) }
+            .collect {
+                onEach(it)
+            }
+    }
 }

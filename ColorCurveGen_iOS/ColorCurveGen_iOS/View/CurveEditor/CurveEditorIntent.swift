@@ -42,5 +42,9 @@ final class CurveEditorIntent: CurveEditorIntentProtocol {
         model?.deleteHue()
     }
     
+    func onNameChanged() {
+        model?.saveNameChange()
+    }
+    
     private weak var model: CurveEditorModelActionsProtocol?
 }

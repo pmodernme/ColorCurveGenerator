@@ -6,12 +6,12 @@ plugins {
 dependencies {
     implementation(project(":shared"))
     implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.1")
+    implementation("androidx.appcompat:appcompat:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.2")
 }
 
 android {
-    compileSdk = 30
+    compileSdk = 31
     defaultConfig {
         applicationId = "io.zvb.colorcurvegenerator.android"
         minSdk = 21

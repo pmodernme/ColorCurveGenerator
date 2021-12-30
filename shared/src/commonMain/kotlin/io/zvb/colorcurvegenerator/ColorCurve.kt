@@ -3,37 +3,43 @@ package io.zvb.colorcurvegenerator
 interface ColorCurve {
     var nodes: List<ColorCurveNode>
 
-    fun nodeForHue(hue: Double): ColorCurveNode {
-        var result = ColorCurveNode(hue, 1.0, 1.0, 1.0)
-
-        for (idx in nodes.indices) {
-            var idx = idx
-            var node = nodes[idx]
-            if (idx == 0 && hue < node.h) {
-                node = nodes.lastOrNull()?.let { it.copy(h = it.h - ColorCurveNode.hueUpperBound) }
-                    ?: ColorCurveNode(hue, 1.0, 1.0, 1.0)
-                idx -= 1
+    fun nodeForHue(hue: Double): ColorCurveNode = when(nodes.count()) {
+        0 -> ColorCurveNode(hue, 1.0, 1.0)
+        1 -> nodes[0].copy(h = hue)
+        else -> {
+            val nodes: Pair<ColorCurveNode, ColorCurveNode> = nodes.indexOfLast {
+                it.h < hue
+            }.let {
+                when {
+                    it >= 0 && nodes.count() > it + 1 -> Pair(nodes[it], nodes[it + 1])
+                    it >= 0 -> {
+                        val first = nodes.last()
+                        val last = nodes.first().run { copy(h = h + ColorCurveNode.hueUpperBound) }
+                        Pair(first, last)
+                    }
+                    else -> {
+                        val first = nodes.last().run { copy(h = h - ColorCurveNode.hueUpperBound) }
+                        val last = nodes.first()
+                        Pair(first, last)
+                    }
+                }
             }
-            val nextPoint: ColorCurveNode = nodes.elementAtOrNull(idx + 1)
-                ?: nodes.elementAtOrNull(0)?.let { it.copy(h = it.h + ColorCurveNode.hueUpperBound) }
-                ?: ColorCurveNode(hue, 1.0, 1.0, 1.0)
-
-            if (hue > nextPoint.h) {
-                continue
-            }
-
-            // Find the proportion of the hue (where the hue is between points)
-            val pH = hue.minus(node.h).div(nextPoint.h.minus(node.h))
-
-            val rS = pH.times(nextPoint.s - node.s).plus(node.s)
-            val rB = pH.times(nextPoint.b - node.b).plus(node.b)
-            val rA = pH.times(nextPoint.a - node.a).plus(node.a)
-
-            result = ColorCurveNode(hue, rS, rB, rA)
-            break
+            lerpNodes(hue, nodes.first, nodes.second)
         }
+    }
 
-        return result
+    private fun lerpNodes(
+        hue: Double,
+        first: ColorCurveNode,
+        second: ColorCurveNode,
+    ): ColorCurveNode {
+        val pH = hue.minus(first.h).div(second.h.minus(first.h))
+
+        val rS = pH.times(second.s - first.s).plus(first.s)
+        val rB = pH.times(second.b - first.b).plus(first.b)
+        val rA = pH.times(second.a - first.a).plus(first.a)
+
+        return ColorCurveNode(hue, rS, rB, rA)
     }
 
     fun asSpectrum(): List<ColorCurveNode> =
